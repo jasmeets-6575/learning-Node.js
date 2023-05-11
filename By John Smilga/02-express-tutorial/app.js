@@ -1,9 +1,19 @@
-const http = require("http")
+const express = require("express")
+const path = require("path")
 
-const server = http.createServer((req,res)=>{
-    res.writeHead(200,{"content-type":"text\html"})
-    req.write("<h1>home page</h1>")
-    res.end("")
+const app = express()
+
+// setup static and middleware
+app.use(express.static("./navbar-app"))
+
+app.get("/",(req,res)=>{
+    res.sendFile(path.resolve(__dirname,"./navbar-app/index.html"))
 })
 
-server.listen(5000)
+app.all("*",(req,res)=>{
+    res.status(404).send("resource not found")
+})
+
+app.listen(5000,()=>{
+    console.log("server is listening on port 5000..");
+})
