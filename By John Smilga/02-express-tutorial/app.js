@@ -42,10 +42,9 @@ app.get("/api/v1/query", (req, res) => {
   }
   if (sortedProducts.length < 1) {
     // res.status(400).send("Product does not exist");
-    return res.status(200).json({success: true, data: []})
+    return res.status(200).json({ success: true, data: [] });
   }
   res.status(200).json(sortedProducts);
-  
 });
 
 app.all("*", (req, res) => {
