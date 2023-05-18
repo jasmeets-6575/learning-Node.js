@@ -5,7 +5,7 @@ const authorize = require('./authorize')
 //  req => middleware => res
 app.use([logger, authorize])
 // api/home/about/products
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   res.send('Home')
 })
 app.get('/about', (req, res) => {
