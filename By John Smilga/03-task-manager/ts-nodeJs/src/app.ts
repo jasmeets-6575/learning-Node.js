@@ -7,8 +7,8 @@ import * as dotenv from "dotenv";
 import path from "path";
 dotenv.config();
 
-const publicDirectoryPath = path.join(__dirname, '../public');
 // middleware
+const publicDirectoryPath = path.join(__dirname, '../public');
 app.use(express.static(publicDirectoryPath))
 app.use(json());
 
