@@ -5,14 +5,16 @@ import tasks from "./routes/tasks";
 import { connectDB } from "./db/connect";
 import * as dotenv from "dotenv";
 import path from "path";
+import { notFound } from "./middleware/not-found";
 dotenv.config();
 
 // middleware
-const publicDirectoryPath = path.join(__dirname, '../public');
-app.use(express.static(publicDirectoryPath))
+const publicDirectoryPath = path.join(__dirname, "../public");
+app.use(express.static(publicDirectoryPath));
 app.use(json());
 
 app.use("/api/v1/tasks", tasks);
+app.use(notFound);
 
 const port: number = 3000;
 
