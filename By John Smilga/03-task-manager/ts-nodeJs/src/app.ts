@@ -4,9 +4,12 @@ import { json } from "body-parser";
 import tasks from "./routes/tasks";
 import { connectDB } from "./db/connect";
 import * as dotenv from "dotenv";
+import path from "path";
 dotenv.config();
 
+const publicDirectoryPath = path.join(__dirname, '../public');
 // middleware
+app.use(express.static(publicDirectoryPath))
 app.use(json());
 
 app.use("/api/v1/tasks", tasks);

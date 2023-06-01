@@ -41,8 +41,11 @@ const body_parser_1 = require("body-parser");
 const tasks_1 = __importDefault(require("./routes/tasks"));
 const connect_1 = require("./db/connect");
 const dotenv = __importStar(require("dotenv"));
+const path_1 = __importDefault(require("path"));
 dotenv.config();
+const publicDirectoryPath = path_1.default.join(__dirname, '../public');
 // middleware
+app.use(express_1.default.static(publicDirectoryPath));
 app.use((0, body_parser_1.json)());
 app.use("/api/v1/tasks", tasks_1.default);
 const port = 3000;
