@@ -43,6 +43,7 @@ const connect_1 = require("./db/connect");
 const dotenv = __importStar(require("dotenv"));
 const path_1 = __importDefault(require("path"));
 const not_found_1 = require("./middleware/not-found");
+const error_handle_1 = require("./middleware/error-handle");
 dotenv.config();
 // middleware
 const publicDirectoryPath = path_1.default.join(__dirname, "../public");
@@ -50,6 +51,7 @@ app.use(express_1.default.static(publicDirectoryPath));
 app.use((0, body_parser_1.json)());
 app.use("/api/v1/tasks", tasks_1.default);
 app.use(not_found_1.notFound);
+app.use(error_handle_1.errorHandlerMiddleware);
 const port = 3000;
 const mongoURI = process.env.MONGO_URI;
 const start = () => __awaiter(void 0, void 0, void 0, function* () {

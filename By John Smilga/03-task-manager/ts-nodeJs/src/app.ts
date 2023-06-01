@@ -6,6 +6,7 @@ import { connectDB } from "./db/connect";
 import * as dotenv from "dotenv";
 import path from "path";
 import { notFound } from "./middleware/not-found";
+import { errorHandlerMiddleware } from "./middleware/error-handle";
 dotenv.config();
 
 // middleware
@@ -15,6 +16,7 @@ app.use(json());
 
 app.use("/api/v1/tasks", tasks);
 app.use(notFound);
+app.use(errorHandlerMiddleware);
 
 const port: number = 3000;
 
