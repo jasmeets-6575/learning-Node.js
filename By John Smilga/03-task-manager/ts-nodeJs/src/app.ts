@@ -9,14 +9,7 @@ dotenv.config();
 // middleware
 app.use(json());
 
-app.get("/hello", (req, res) => {
-  res.send("Task Manager App");
-});
-
 app.use("/api/v1/tasks", tasks);
-app.use("/api/v1/tasks", tasks);
-app.use("/api/v1/tasks/:id", tasks);
-app.use("/api/v1/tasks/:id", tasks);
 
 const port: number = 3000;
 

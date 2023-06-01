@@ -44,13 +44,7 @@ const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 // middleware
 app.use((0, body_parser_1.json)());
-app.get("/hello", (req, res) => {
-    res.send("Task Manager App");
-});
 app.use("/api/v1/tasks", tasks_1.default);
-app.use("/api/v1/tasks", tasks_1.default);
-app.use("/api/v1/tasks/:id", tasks_1.default);
-app.use("/api/v1/tasks/:id", tasks_1.default);
 const port = 3000;
 const mongoURI = process.env.MONGO_URI;
 const start = () => __awaiter(void 0, void 0, void 0, function* () {

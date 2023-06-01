@@ -1,11 +1,13 @@
 import { RequestHandler } from "express";
+import Task from "../models/Task";
 
 export const getAllTasks: RequestHandler = (req, res) => {
   res.send("get all tasks");
 };
 
-export const createTasks: RequestHandler = (req, res) => {
-  res.json(req.body);
+export const createTasks: RequestHandler = async (req, res) => {
+  const task = await Task.create(req.body);
+  res.status(201).json({ task });
 };
 
 export const getTask: RequestHandler = (req, res) => {
