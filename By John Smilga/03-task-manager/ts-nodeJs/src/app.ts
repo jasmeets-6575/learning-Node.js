@@ -18,7 +18,7 @@ app.use("/api/v1/tasks", tasks);
 app.use(notFound);
 app.use(errorHandlerMiddleware);
 
-const port: number = 3000;
+const port: string | number = process.env.PORT || 3000;
 
 const mongoURI: string | undefined = process.env.MONGO_URI;
 const start = async () => {
