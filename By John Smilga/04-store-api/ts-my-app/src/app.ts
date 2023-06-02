@@ -6,6 +6,7 @@ const app = express();
 import { notFound } from "./middleware/not-found";
 import { errorHandlerMiddleware } from "./middleware/error-handler";
 import { json } from "body-parser";
+import { connectDB } from "./db/connect";
 
 // middleware
 app.use(json());
@@ -19,11 +20,14 @@ app.use(notFound);
 app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 3000;
+const mongoURI = process.env.MONGO_URI;
 
 const start = async () => {
   try {
-    // connectDB
-    app.listen(port, () => console.log(`Server is listening port ${port}`));
+    if (mongoURI) {
+      await connectDB(mongoURI);
+      app.listen(port, () => console.log(`Server is listening port ${port}`));
+    }
   } catch (error) {
     console.log(error);
   }
