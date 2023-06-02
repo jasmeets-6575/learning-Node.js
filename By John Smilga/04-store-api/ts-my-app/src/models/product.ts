@@ -1,13 +1,12 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 interface SchemaInput extends Document {
-    name:string;
-    price:number;
-    featured:boolean;
-    rating:number;
-    createdAt:Date;
-    company:string;
-    
+  name: string;
+  price: number;
+  featured: boolean;
+  rating: number;
+  createdAt: Date;
+  company: string;
 }
 const productSchema: Schema = new mongoose.Schema({
   name: {
@@ -32,12 +31,12 @@ const productSchema: Schema = new mongoose.Schema({
   },
   company: {
     type: String,
-    enum:{
-        values:["ikea", "liddy", "caressa", "marcos"],
-        message: "{VALUE} is not supported",
-    }
+    enum: {
+      values: ["ikea", "liddy", "caressa", "marcos"],
+      message: "{VALUE} is not supported",
+    },
     // enum: ["ikea", "liddy", "caressa", "marcos"],
   },
-})
+});
 
-export default mongoose.model<SchemaInput>("Products",productSchema)
+export default mongoose.model<SchemaInput>("Products", productSchema);
