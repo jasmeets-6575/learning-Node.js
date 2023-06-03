@@ -18,7 +18,7 @@ export const getAllProductsStatic: RequestHandler = async (req, res) => {
 };
 
 export const getAllProducts: RequestHandler = async (req, res) => {
-  const { featured, company, name, sort } = req.query;
+  const { featured, company, name, sort, fields } = req.query;
   const queryObject: queryParameter = {};
   //   const regexObj = { $regex: name, $options: "i" };
   if (featured) {
@@ -32,12 +32,24 @@ export const getAllProducts: RequestHandler = async (req, res) => {
   }
 
   let result = Product.find(queryObject);
+  // sort
   if (typeof sort === "string") {
     const sortList = sort.split(",").join(" ");
-    result = result.sort(sortList);
+    result = result.sort(sortList); 
   } else {
     result = result.sort("createdAt");
   }
+
+  if (typeof fields === "string") {
+    const fieldsList = fields.split(",").join(" ");
+    result = result.sort(fieldsList);
+  }
+  const page:number = Number(req.query.page) || 1;
+  const limit:number = Number(req.query.limit) || 10;
+  const skip:number = (page -1) * limit
+
+  result = result.skip(skip).limit(limit)
+
   const products = await result;
   res.status(200).json({ nbHits: products.length, products });
 };
