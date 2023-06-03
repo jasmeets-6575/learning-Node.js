@@ -1,18 +1,25 @@
 import { RequestHandler } from "express";
 import { CustomAPIError } from "../errors/custom-error";
 import * as dotenv from "dotenv";
-import jwt ,{JwtPayload} from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import { Request, Response } from "express";
+import { BadRequest } from "../errors/bad-request";
+
+interface CustomRequest extends Request {
+  user: {
+    id: string;
+    username: string;
+  };
+}
+
 dotenv.config();
 
 const JWT_URI: string | undefined = process.env.JWT_SECRET;
 export const login: RequestHandler = async (req, res) => {
   const { username, password } = req.body;
-  // mongoose validation
-  // Joi
-  // check in the controller
 
   if (!username || !password) {
-    throw new CustomAPIError("Please provide email and password", 400);
+    throw new BadRequest("Please provide email and password");
   }
   // just for demo, normally provided by DB
   const id = new Date().getDate();
@@ -24,25 +31,10 @@ export const login: RequestHandler = async (req, res) => {
   }
 };
 
-export const dashboard: RequestHandler = async (req, res) => {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    throw new CustomAPIError("No token provided", 401);
-  }
-
-  const token: string = authHeader.split(" ")[1];
-  try {
-    if (JWT_URI) {
-      const decoded = jwt.verify(token, JWT_URI) as JwtPayload;
-
-      const luckyNumber = Math.floor(Math.random() * 100);
-      res.status(200).json({
-        msg: `Hello, ${decoded.username}`,
-        secret: `Here is your authorized data, your lucky number is ${luckyNumber}`,
-      });
-    }
-  } catch (error) {
-    throw new CustomAPIError("Not authorized to access this route", 401);
-  }
+export const dashboard = async (req: any, res: Response) => {
+  const luckyNumber = Math.floor(Math.random() * 100);
+  res.status(200).json({
+    msg: `Hello, ${req.user.username}`,
+    secret: `Here is your authorized data, your lucky number is ${luckyNumber}`,
+  });
 };
