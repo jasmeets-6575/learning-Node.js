@@ -8,7 +8,7 @@ interface SchemaInput extends Document {
   createdAt: Date;
   company: string;
 }
-const productSchema: Schema = new mongoose.Schema({
+const ProductSchema: Schema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "product name must be provided"],
@@ -39,4 +39,4 @@ const productSchema: Schema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model<SchemaInput>("Products", productSchema);
+export default mongoose.model<SchemaInput>("Products", ProductSchema);

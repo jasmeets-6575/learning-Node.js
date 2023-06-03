@@ -5,7 +5,6 @@ import { connectDB } from "./db/connect";
 dotenv.config();
 
 const mongoURI = process.env.MONGO_URI;
-console.log(productsJson)
 const start = async () => {
   try {
     if (mongoURI) {
