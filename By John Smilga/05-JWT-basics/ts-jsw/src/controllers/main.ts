@@ -1,6 +1,15 @@
 import { RequestHandler } from "express";
+import { CustomAPIError } from "../errors/custom-error";
 
 export const login: RequestHandler = async (req, res) => {
+  const { username, password } = req.body;
+  // mongo
+  // Joi
+  // check in the controller
+
+  if (!username || !password) {
+    throw new CustomAPIError("Please provide email and password", 400);
+  }
   res.send("Fake Login/Register/Signup Route");
 };
 
