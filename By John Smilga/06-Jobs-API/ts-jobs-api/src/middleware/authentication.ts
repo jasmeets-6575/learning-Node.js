@@ -2,6 +2,7 @@ import { NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { Response } from "express";
 import { unAuthenticated } from "../errors/unauthenticated";
+import User from "../models/User";
 
 const JWT_URI: string | undefined = process.env.JWT_SECRET;
 
@@ -20,7 +21,8 @@ export const authMiddleware = async (
   try {
     if (JWT_URI) {
       const payload = jwt.verify(token, JWT_URI) as JwtPayload;
-
+        
+    //   const user = User.findById(payload.id).select("-password")
       req.user = { userId: payload.userId, name: payload.name };
       next();
     }

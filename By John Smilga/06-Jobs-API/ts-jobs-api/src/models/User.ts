@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import { Document, Schema, model } from "mongoose";
+import { Document, Schema } from "mongoose";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
 interface IUser extends Document {
@@ -11,7 +11,7 @@ interface IUser extends Document {
   comparePassword(arg:string): () => JwtPayload;
 }
 
-const UserSchema = new mongoose.Schema({
+const UserSchema: Schema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please provide name"],
