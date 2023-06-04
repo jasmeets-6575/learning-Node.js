@@ -29,7 +29,19 @@ export const getAllJobs = async (req: CustomRequest, res: Response) => {
 };
 
 export const getJob = async (req: CustomRequest, res: Response) => {
-  
+  const {
+    user: { userId },
+    params: { id: jobId },
+  } = req;
+
+  const job = await Jobs.findOne({
+    _id: jobId,
+    createdBy: userId,
+  });
+  if (!job) {
+    throw new NotFound(`No job with id ${jobId}`);
+  }
+  res.status(StatusCodes.OK).json({ job });
 };
 
 export const createJob = async (req: CustomRequest, res: Response) => {
@@ -38,10 +50,6 @@ export const createJob = async (req: CustomRequest, res: Response) => {
   res.status(StatusCodes.CREATED).json({ job });
 };
 
-export const updateJob = async (req: CustomRequest, res: Response) => {
-  
-};
+export const updateJob = async (req: CustomRequest, res: Response) => {};
 
-export const deleteJob = async (req: CustomRequest, res: Response) => {
-
-};
+export const deleteJob = async (req: CustomRequest, res: Response) => {};
