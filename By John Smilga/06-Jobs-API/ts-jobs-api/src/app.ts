@@ -3,6 +3,9 @@ import express from "express";
 import { notFound } from "./middleware/not-found";
 import { errorHandlerMiddleware } from "./middleware/error-handler";
 import { json } from "body-parser";
+import authRouter from "./routes/auth"
+import jobsRouter from "./routes/jobs"
+
 dotenv.config();
 const app = express();
 
@@ -10,9 +13,8 @@ const app = express();
 app.use(json());
 
 // routes
-app.get("/", (req, res) => {
-  res.send("jobs api");
-});
+app.use("/api/v1/auth",authRouter)
+app.use("/api/v1/jobs",jobsRouter)
 
 app.use(notFound);
 app.use(errorHandlerMiddleware);
