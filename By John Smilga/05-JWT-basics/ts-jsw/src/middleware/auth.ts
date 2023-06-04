@@ -5,14 +5,14 @@ import { Response } from "express";
 import { unAuthenticated } from "../errors/unauthenticated";
 
 
-const JWT_URI: string | undefined = process.env.JWT_SECRET;
 
 export const authenticationMiddleware = async (
   req: any,
   res: Response,
   next: NextFunction
-) => {
-  const authHeader = req.headers.authorization;
+  ) => {
+    const authHeader = req.headers.authorization;
+    const JWT_URI: string | undefined = process.env.JWT_SECRET;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     throw new unAuthenticated("No token provided");

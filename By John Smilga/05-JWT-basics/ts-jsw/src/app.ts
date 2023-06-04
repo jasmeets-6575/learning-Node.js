@@ -21,9 +21,9 @@ app.use("/api/v1", mainRouter);
 app.use(notFound);
 app.use(errorHandlerMiddleware);
 
-const port = process.env.PORT || 3000;
 const start = async () => {
   try {
+    const port = process.env.PORT || 3000; 
     app.listen(port, () => console.log(`Server is listening port ${port}`));
   } catch (error) {
     console.log(error);

@@ -9,7 +9,7 @@ export const getJob: RequestHandler = async (req, res) => {
 };
 
 export const createJob: RequestHandler = async (req, res) => {
-  res.json(req);
+  res.json(req.body);
 };
 
 export const updateJob: RequestHandler = async (req, res) => {

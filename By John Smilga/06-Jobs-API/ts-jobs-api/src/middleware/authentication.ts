@@ -4,13 +4,13 @@ import { Response } from "express";
 import { unAuthenticated } from "../errors/unauthenticated";
 import User from "../models/User";
 
-const JWT_URI: string | undefined = process.env.JWT_SECRET;
 
 export const authMiddleware = async (
   req: any,
   res: Response,
   next: NextFunction
-) => {
+  ) => {
+  const JWT_URI: string | undefined = process.env.JWT_SECRET;
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
