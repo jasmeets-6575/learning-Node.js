@@ -13,13 +13,13 @@ const app = express();
 
 // middleware
 app.use(json());
+app.use(notFound);
+app.use(errorHandlerMiddleware);
 
 // routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/jobs", authMiddleware, jobsRouter);
 
-app.use(notFound);
-app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 3000;
 const mongoURI: string | undefined = process.env.MONGO_URI;
